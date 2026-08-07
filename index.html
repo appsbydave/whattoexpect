@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en-GB"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What to Expect Maker &mdash; St Mungo&rsquo;s</title>
+<style>
+:root{
+  --paper:#FBFAF8; --ink:#23222B; --slate:#63626E; --line:#E3E0D8;
+  --purple:#4B2E83; --teal:#14625A; --teal-pale:#E6F0EE; --white:#fff;
+  --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+  font-size:15px;line-height:1.55}
+h1,h2,h3{margin:0;font-weight:800;letter-spacing:-.02em;line-height:1.15}
+.top{border-bottom:1px solid var(--line);padding:26px 30px 22px;background:#fff}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--purple);margin:0 0 9px}
+h1{font-size:clamp(24px,3.4vw,34px)}
+.top p{margin:9px 0 0;color:var(--slate);max-width:66ch;font-size:15px}
+.layout{display:flex;flex-wrap:wrap;align-items:flex-start;gap:0}
+.panel{flex:1 1 460px;min-width:0;padding:26px 30px 60px}
+.panel.right{flex:1 1 430px;border-left:1px solid var(--line);background:#fff;
+  position:sticky;top:0;align-self:flex-start}
+@media(max-width:900px){.panel.right{position:static;border-left:0;border-top:1px solid var(--line)}}
+h2{font-size:13px;font-family:var(--mono);letter-spacing:.11em;text-transform:uppercase;
+  color:var(--purple);margin:0 0 14px}
+h2.sp{margin-top:34px}
+
+fieldset{border:1px solid var(--line);border-radius:12px;padding:16px 16px 16px;
+  margin:0;background:#fff}
+fieldset[data-off="1"]{opacity:.5;background:#FAF9F6}
+legend{padding:0 6px;font-weight:800;font-size:15.5px;letter-spacing:-.01em}
+.q{color:var(--slate);font-size:13.5px;margin:0 0 11px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{flex:1 1 130px;display:flex;align-items:center;gap:9px;text-align:left;cursor:pointer;
+  border:1px solid var(--line);background:#fff;border-radius:9px;padding:9px 11px;
+  font:inherit;font-size:13.5px;color:var(--ink);line-height:1.3}
+.opt:hover{border-color:#B9B5AA}
+.opt svg{flex:none;color:var(--ink)}
+.opt[aria-pressed="true"]{border-color:var(--teal);background:var(--teal-pale);
+  box-shadow:inset 0 0 0 1px var(--teal);font-weight:700}
+.opt:focus-visible,.btn:focus-visible,input:focus-visible,select:focus-visible,
+.tog:focus-visible{outline:3px solid var(--purple);outline-offset:2px}
+.tog{position:absolute;top:-12px;right:16px;z-index:3;font-family:var(--mono);font-size:11px;
+  letter-spacing:.08em;text-transform:uppercase;background:#fff;border:1px solid var(--line);
+  border-radius:20px;padding:4px 12px;cursor:pointer;color:var(--slate);line-height:1.4}
+.tog[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.fs-wrap{position:relative;margin-bottom:12px}
+
+label.f{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--slate);margin:0 0 6px}
+input[type=text],select,textarea{width:100%;font:inherit;padding:9px 11px;border-radius:9px;
+  border:1px solid var(--line);background:#fff;color:var(--ink)}
+textarea{resize:vertical;min-height:64px;font-size:14px}
+.row{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:12px}
+.row > div{flex:1 1 150px;min-width:0}
+
+.stage{border:1px solid var(--line);border-radius:12px;padding:20px;overflow:auto;
+  background:
+   linear-gradient(45deg,#F1EFE9 25%,transparent 25%,transparent 75%,#F1EFE9 75%),
+   linear-gradient(45deg,#F1EFE9 25%,transparent 25%,transparent 75%,#F1EFE9 75%),#fff;
+  background-size:16px 16px;background-position:0 0,8px 8px}
+.stage > svg{max-width:100%;height:auto;display:block;margin:0 auto}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 0}
+.btn{font:inherit;font-weight:700;font-size:14px;cursor:pointer;border-radius:9px;
+  padding:11px 16px;border:1px solid var(--ink);background:var(--ink);color:#fff}
+.btn.sec{background:#fff;color:var(--ink);border-color:var(--line)}
+.btn.sec:hover{border-color:#B9B5AA}
+.btn:active{transform:translateY(1px)}
+.note{font-size:13px;color:var(--slate);margin:14px 0 0}
+.alt{margin-top:22px}
+.alt textarea{font-family:var(--mono);font-size:12.5px}
+.said{font-size:13px;color:var(--teal);font-weight:700;min-height:18px;margin-top:8px}
+@media print{.panel:not(.right),.btns,.top p{display:none}}
+</style></head><body>
+
+<header class="top">
+  <p class="eyebrow">St Mungo&rsquo;s Church &middot; Balerno &amp; Livingston</p>
+  <h1>What to Expect Maker</h1>
+  <p>Set what your event is actually like, then download the graphic for your flyer, leaflet,
+  email or web page. Everything happens in this page &mdash; nothing is uploaded anywhere.</p>
+</header>
+
+<div class="layout">
+<div class="panel">
+  <h2>1. Name the event</h2>
+  <div class="row">
+    <div style="flex:1 1 100%"><label class="f" for="ttl">Heading on the graphic</label>
+      <input type="text" id="ttl" value="Sunday 10.30am &middot; Balerno"></div>
+  </div>
+  <div class="row">
+    <div style="flex:1 1 100%"><label class="f" for="note">Extra line at the bottom (optional)</label>
+      <textarea id="note">Printed order of service at the door. The quiet room is open throughout &mdash; ask any welcomer.</textarea></div>
+  </div>
+  <h2 class="sp">2. Set each measure honestly</h2>
+  <div id="form"></div>
+
+  <h2 class="sp">3. Choose how it looks</h2>
+  <div class="row">
+    <div><label class="f" for="lay">Shape</label>
+      <select id="lay">
+        <option value="4">Wide row &mdash; email, web page</option>
+        <option value="3">Three across &mdash; A5 flyer</option>
+        <option value="2">Two across &mdash; leaflet panel</option>
+        <option value="1">Single column &mdash; tall sidebar</option>
+      </select></div>
+    <div><label class="f" for="col">Colour</label>
+      <select id="col">
+        <option value="#23222B">Ink (near black)</option>
+        <option value="#4B2E83">St Mungo&rsquo;s purple</option>
+        <option value="#14625A">Teal</option>
+        <option value="#FFFFFF">White (for dark backgrounds)</option>
+      </select></div>
+    <div><label class="f" for="bg">Background</label>
+      <select id="bg">
+        <option value="#FFFFFF">White, with border</option>
+        <option value="none">Transparent, no border</option>
+        <option value="#FBFAF8">Warm paper</option>
+      </select></div>
+    <div><label class="f" for="scale">PNG size</label>
+      <select id="scale">
+        <option value="3">Large &mdash; print (3&times;)</option>
+        <option value="2" selected>Medium &mdash; web and email (2&times;)</option>
+        <option value="1">Small (1&times;)</option>
+      </select></div>
+  </div>
+</div>
+
+<div class="panel right">
+  <h2>Your graphic</h2>
+  <div class="stage" id="stage"></div>
+  <div class="btns">
+    <button class="btn" id="dlPng">Download PNG</button>
+    <button class="btn sec" id="dlSvg">Download SVG</button>
+    <button class="btn sec" id="cpHtml">Copy HTML for the website</button>
+  </div>
+  <p class="said" id="said" role="status" aria-live="polite"></p>
+  <p class="note">PNG for email, Word, Canva and print. SVG for Affinity and anywhere it
+  needs to stay sharp at any size.</p>
+
+  <div class="alt">
+    <h2>Alt text &mdash; copy this too</h2>
+    <textarea id="altbox" rows="4" readonly aria-label="Alternative text for this graphic"></textarea>
+    <div class="btns"><button class="btn sec" id="cpAlt">Copy alt text</button></div>
+    <p class="note">A graphic without alt text tells a blind or partially sighted visitor
+    nothing at all. Paste this into the image description field wherever you use it.</p>
+  </div>
+</div>
+</div>
+
+<footer style="border-top:1px solid var(--line);padding:26px 30px 44px;background:#fff;color:var(--slate);font-size:13.5px;line-height:1.7"><p style="margin:0 0 8px"><a href="guide.html" style="color:var(--purple);font-weight:700">Read the full guide &rarr;</a> &mdash; what each measure means, how to set a level honestly, and the accessibility rules. Icon files are in <code>svg/</code> and <code>png/</code>.</p><p style="margin:0;max-width:78ch">Created for St Mungo&rsquo;s Church, Balerno &middot; Scottish Charity SC018114. Icons are original line drawings, released under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> &mdash; the same terms as the Home Office accessibility posters this system draws on.</p></footer>
+
+<script>
+const D = {"dims":[{"key":"volume","name":"Volume","question":"How loud will it be?","core":true,"levels":[{"word":"Quiet","detail":"Speaking voices, quiet music","alt":"Volume: quiet."},{"word":"Moderate","detail":"Live music and singing, conversation level","alt":"Volume: moderate."},{"word":"Loud","detail":"Amplified band; ear defenders welcome","alt":"Volume: loud."}]},{"key":"bass","name":"Bass","question":"Will you feel the low notes as well as hear them?","core":false,"levels":[{"word":"Little or none","detail":"Piano, organ, voices or acoustic instruments.","alt":"Bass: little or none."},{"word":"You will hear it","detail":"A full band. Bass guitar and drums in the mix.","alt":"Bass: you will hear it."},{"word":"You will feel it","detail":"Deep bass through the floor and in your chest. Some people love this; some find it hard to sit with.","alt":"Bass: you will feel it."}]},{"key":"crowd","name":"How busy","question":"How many people will be there?","core":true,"levels":[{"word":"Quiet","detail":"Up to about 30 people","alt":"How busy: quiet."},{"word":"Busy","detail":"Around 50 to 150 people","alt":"How busy: busy."},{"word":"Full","detail":"Over 150 people; the room will feel full","alt":"How busy: full."}]},{"key":"seating","name":"Seating","question":"Where can I sit?","core":true,"levels":[{"word":"Sit anywhere","detail":"Plenty of seats, including at the back and near the door","alt":"Seating: sit anywhere."},{"word":"Set out in rows","detail":"Seats for everyone, arranged in rows","alt":"Seating: set out in rows."},{"word":"Limited seats","detail":"Some people will be standing","alt":"Seating: limited seats, some standing."}]},{"key":"space","name":"Personal space","question":"How close will I be to other people?","core":true,"levels":[{"word":"Room around you","detail":"Easy to keep space between you and others","alt":"Personal space: room around you."},{"word":"Fairly close","detail":"You may be sitting next to someone you do not know","alt":"Personal space: fairly close."},{"word":"Close together","detail":"Shoulder to shoulder; people may move past you","alt":"Personal space: close together."}]},{"key":"length","name":"Length","question":"How long will it last?","core":true,"levels":[{"word":"About 1 hour","detail":"Runs straight through, no break.","alt":"Length: about 1 hour."},{"word":"About 1 hour 30 minutes","detail":"Our standard Sunday length.","alt":"Length: about 1 hour 30 minutes."},{"word":"Over 1 hour 30 minutes","detail":"Our longest gatherings. You are free to leave and come back.","alt":"Length: over 1 hour 30 minutes."}]},{"key":"order","name":"What happens","question":"Will I know what is coming next?","core":true,"levels":[{"word":"Set order","detail":"Printed order of service; we follow it","alt":"What happens: set order."},{"word":"Mostly set","detail":"Printed order, with room for the unplanned","alt":"What happens: mostly set."},{"word":"Led in the moment","detail":"No fixed order; the shape is decided as we go","alt":"What happens: led in the moment."}]},{"key":"light","name":"Lighting","question":"What will the lighting be like?","core":false,"levels":[{"word":"Steady","detail":"Normal room lighting throughout","alt":"Lighting: steady."},{"word":"Dimmed at times","detail":"Lights lowered for parts of the service","alt":"Lighting: dimmed at times."},{"word":"Moving or flashing","detail":"Stage lighting that changes or flashes","alt":"Lighting: moving or flashing lights."}]},{"key":"join","name":"Joining in","question":"Will I be asked to take part?","core":false,"levels":[{"word":"Watch only","detail":"You can sit and watch the whole time","alt":"Joining in: you can watch only."},{"word":"Join in if you want","detail":"You will be invited, never singled out","alt":"Joining in: join in if you want."},{"word":"Everyone takes part","detail":"Standing, singing or moving is part of it","alt":"Joining in: everyone takes part."}]}],"quiet":{"key":"quiet","name":"Quiet space","question":"Is there somewhere to go if I need a break?","levels":[{"word":"Available","detail":"A quiet room is open throughout; ask any welcomer","alt":"Quiet space: available.","suffix":"yes"},{"word":"Not available","detail":"No quiet room at this venue","alt":"Quiet space: not available.","suffix":"no"}]},"icons":{"volume-1":"<path d=\"M7,19 H14 L22,10.5 V37.5 L14,29 H7 Z\"/><path d=\"M26.5,20 a5.5,5.5 0 0 1 0,8\"/>","volume-2":"<path d=\"M7,19 H14 L22,10.5 V37.5 L14,29 H7 Z\"/><path d=\"M26.5,20 a5.5,5.5 0 0 1 0,8\"/><path d=\"M31.5,15.5 a11,11 0 0 1 0,17\"/>","volume-3":"<path d=\"M7,19 H14 L22,10.5 V37.5 L14,29 H7 Z\"/><path d=\"M26.5,20 a5.5,5.5 0 0 1 0,8\"/><path d=\"M31.5,15.5 a11,11 0 0 1 0,17\"/><path d=\"M36.5,11 a16.5,16.5 0 0 1 0,26\"/>","crowd-1":"<circle cx=\"15.00\" cy=\"15.80\" r=\"3.80\" stroke-width=\"2.44\"/><path d=\"M8.35,34.80 v-5.70 a6.65,6.65 0 0 1 13.30,0 v5.70\" stroke-width=\"2.44\"/><circle cx=\"33.00\" cy=\"15.80\" r=\"3.80\" stroke-width=\"2.44\"/><path d=\"M26.35,34.80 v-5.70 a6.65,6.65 0 0 1 13.30,0 v5.70\" stroke-width=\"2.44\"/>","crowd-2":"<circle cx=\"17.00\" cy=\"8.32\" r=\"2.32\" stroke-width=\"2.03\"/><path d=\"M12.94,19.92 v-3.48 a4.06,4.06 0 0 1 8.12,0 v3.48\" stroke-width=\"2.03\"/><circle cx=\"31.00\" cy=\"8.32\" r=\"2.32\" stroke-width=\"2.03\"/><path d=\"M26.94,19.92 v-3.48 a4.06,4.06 0 0 1 8.12,0 v3.48\" stroke-width=\"2.03\"/><circle cx=\"10.00\" cy=\"24.32\" r=\"2.32\" stroke-width=\"2.03\"/><path d=\"M5.94,35.92 v-3.48 a4.06,4.06 0 0 1 8.12,0 v3.48\" stroke-width=\"2.03\"/><circle cx=\"24.00\" cy=\"24.32\" r=\"2.32\" stroke-width=\"2.03\"/><path d=\"M19.94,35.92 v-3.48 a4.06,4.06 0 0 1 8.12,0 v3.48\" stroke-width=\"2.03\"/><circle cx=\"38.00\" cy=\"24.32\" r=\"2.32\" stroke-width=\"2.03\"/><path d=\"M33.94,35.92 v-3.48 a4.06,4.06 0 0 1 8.12,0 v3.48\" stroke-width=\"2.03\"/>","crowd-3":"<circle cx=\"11.00\" cy=\"5.84\" r=\"1.84\" stroke-width=\"1.89\"/><path d=\"M7.78,15.04 v-2.76 a3.22,3.22 0 0 1 6.44,0 v2.76\" stroke-width=\"1.89\"/><circle cx=\"24.00\" cy=\"5.84\" r=\"1.84\" stroke-width=\"1.89\"/><path d=\"M20.78,15.04 v-2.76 a3.22,3.22 0 0 1 6.44,0 v2.76\" stroke-width=\"1.89\"/><circle cx=\"37.00\" cy=\"5.84\" r=\"1.84\" stroke-width=\"1.89\"/><path d=\"M33.78,15.04 v-2.76 a3.22,3.22 0 0 1 6.44,0 v2.76\" stroke-width=\"1.89\"/><circle cx=\"11.00\" cy=\"19.34\" r=\"1.84\" stroke-width=\"1.89\"/><path d=\"M7.78,28.54 v-2.76 a3.22,3.22 0 0 1 6.44,0 v2.76\" stroke-width=\"1.89\"/><circle cx=\"24.00\" cy=\"19.34\" r=\"1.84\" stroke-width=\"1.89\"/><path d=\"M20.78,28.54 v-2.76 a3.22,3.22 0 0 1 6.44,0 v2.76\" stroke-width=\"1.89\"/><circle cx=\"37.00\" cy=\"19.34\" r=\"1.84\" stroke-width=\"1.89\"/><path d=\"M33.78,28.54 v-2.76 a3.22,3.22 0 0 1 6.44,0 v2.76\" stroke-width=\"1.89\"/><circle cx=\"11.00\" cy=\"32.84\" r=\"1.84\" stroke-width=\"1.89\"/><path d=\"M7.78,42.04 v-2.76 a3.22,3.22 0 0 1 6.44,0 v2.76\" stroke-width=\"1.89\"/><circle cx=\"24.00\" cy=\"32.84\" r=\"1.84\" stroke-width=\"1.89\"/><path d=\"M20.78,42.04 v-2.76 a3.22,3.22 0 0 1 6.44,0 v2.76\" stroke-width=\"1.89\"/><circle cx=\"37.00\" cy=\"32.84\" r=\"1.84\" stroke-width=\"1.89\"/><path d=\"M33.78,42.04 v-2.76 a3.22,3.22 0 0 1 6.44,0 v2.76\" stroke-width=\"1.89\"/>","bass-1":"<path d=\"M8,24 q4,-3.5 8,0 t8,0 t8,0 t8,0\" stroke-width=\"2.4\"/>","bass-2":"<path d=\"M7,24 q5.5,-10 11,0 t11,0 t11,0\" stroke-width=\"2.6\"/>","bass-3":"<path d=\"M8,24 q8,-18 16,0 t16,0\" stroke-width=\"3.1\"/><path d=\"M4,19.5 V28.5 M44,19.5 V28.5\" stroke-width=\"2.2\"/>","seating-1":"<path d=\"M12.10,13.00 V36.10 M12.10,27.70 H26.80 M24.70,27.70 V36.10\" stroke-width=\"2.55\"/><path d=\"M31,24 l4,4 L43,19\" stroke-width=\"2.8\"/>","seating-2":"<path d=\"M4.24,16.00 V29.64 M4.24,24.68 H12.92 M11.68,24.68 V29.64\" stroke-width=\"2.12\"/><path d=\"M17.74,16.00 V29.64 M17.74,24.68 H26.42 M25.18,24.68 V29.64\" stroke-width=\"2.12\"/><path d=\"M31.24,16.00 V29.64 M31.24,24.68 H39.92 M38.68,24.68 V29.64\" stroke-width=\"2.12\"/>","seating-3":"<path d=\"M6.80,14.00 V33.80 M6.80,26.60 H19.40 M17.60,26.60 V33.80\" stroke-width=\"2.40\"/><circle cx=\"34.00\" cy=\"17.40\" r=\"3.40\" stroke-width=\"2.33\"/><path d=\"M28.05,34.40 v-5.10 a5.95,5.95 0 0 1 11.90,0 v5.10\" stroke-width=\"2.33\"/>","space-1":"<circle cx=\"24\" cy=\"24\" r=\"19\" stroke-dasharray=\"3.2 3.6\" stroke-width=\"2\"/><circle cx=\"24.00\" cy=\"17.28\" r=\"3.28\" stroke-width=\"2.30\"/><path d=\"M18.26,33.68 v-4.92 a5.74,5.74 0 0 1 11.48,0 v4.92\" stroke-width=\"2.30\"/>","space-2":"<circle cx=\"24\" cy=\"24\" r=\"13.5\" stroke-dasharray=\"3.2 3.6\" stroke-width=\"2\"/><circle cx=\"24.00\" cy=\"18.30\" r=\"2.80\" stroke-width=\"2.16\"/><path d=\"M19.10,32.30 v-4.20 a4.90,4.90 0 0 1 9.80,0 v4.20\" stroke-width=\"2.16\"/><circle cx=\"5.00\" cy=\"20.84\" r=\"1.84\" stroke-width=\"1.89\"/><path d=\"M1.78,30.04 v-2.76 a3.22,3.22 0 0 1 6.44,0 v2.76\" stroke-width=\"1.89\"/><circle cx=\"43.00\" cy=\"20.84\" r=\"1.84\" stroke-width=\"1.89\"/><path d=\"M39.78,30.04 v-2.76 a3.22,3.22 0 0 1 6.44,0 v2.76\" stroke-width=\"1.89\"/>","space-3":"<circle cx=\"24\" cy=\"24\" r=\"9\" stroke-dasharray=\"3.2 3.6\" stroke-width=\"2\"/><circle cx=\"24.00\" cy=\"19.32\" r=\"2.32\" stroke-width=\"2.03\"/><path d=\"M19.94,30.92 v-3.48 a4.06,4.06 0 0 1 8.12,0 v3.48\" stroke-width=\"2.03\"/><circle cx=\"9.50\" cy=\"18.32\" r=\"2.32\" stroke-width=\"2.03\"/><path d=\"M5.44,29.92 v-3.48 a4.06,4.06 0 0 1 8.12,0 v3.48\" stroke-width=\"2.03\"/><circle cx=\"38.50\" cy=\"18.32\" r=\"2.32\" stroke-width=\"2.03\"/><path d=\"M34.44,29.92 v-3.48 a4.06,4.06 0 0 1 8.12,0 v3.48\" stroke-width=\"2.03\"/>","length-1":"<circle cx=\"24\" cy=\"24\" r=\"17\"/><path d=\"M24,24 L24,12.00 A12.0,12.0 0 0,1 36.00,24.00 Z\" fill=\"currentColor\" fill-opacity=\"0.16\" stroke-width=\"2\"/><path d=\"M24,7 V11\" stroke-width=\"2.4\"/><path d=\"M24,24 L35.5,24.0\" stroke-width=\"2.6\"/>","length-2":"<circle cx=\"24\" cy=\"24\" r=\"17\"/><path d=\"M24,24 L24,12.00 A12.0,12.0 0 0,1 27.11,35.59 Z\" fill=\"currentColor\" fill-opacity=\"0.16\" stroke-width=\"2\"/><path d=\"M24,7 V11\" stroke-width=\"2.4\"/><path d=\"M24,24 L27.0,35.1\" stroke-width=\"2.6\"/>","length-3":"<circle cx=\"24\" cy=\"24\" r=\"17\"/><path d=\"M24,24 L24,12.00 A12.0,12.0 0 1,1 12.00,24.00 Z\" fill=\"currentColor\" fill-opacity=\"0.16\" stroke-width=\"2\"/><path d=\"M24,7 V11\" stroke-width=\"2.4\"/><path d=\"M24,24 L12.5,24.0\" stroke-width=\"2.6\"/>","order-1":"<path d=\"M13,5 h22 a2,2 0 0 1 2,2 v34 a2,2 0 0 1 -2,2 h-22 a2,2 0 0 1 -2,-2 v-34 a2,2 0 0 1 2,-2 z\"/><path d=\"M16.5,15 H31.5 M16.5,24 H31.5 M16.5,33 H27\"/>","order-2":"<path d=\"M13,5 h22 a2,2 0 0 1 2,2 v34 a2,2 0 0 1 -2,2 h-22 a2,2 0 0 1 -2,-2 v-34 a2,2 0 0 1 2,-2 z\"/><path d=\"M16.5,15 H31.5 M16.5,24 H31.5\"/><path d=\"M16.5,33 q3.75,-2.6 7.50,0 t7.50,0\" stroke-width=\"2.5\"/>","order-3":"<path d=\"M13,5 h22 a2,2 0 0 1 2,2 v34 a2,2 0 0 1 -2,2 h-22 a2,2 0 0 1 -2,-2 v-34 a2,2 0 0 1 2,-2 z\"/><path d=\"M16.5,15 q3.75,-2.6 7.50,0 t7.50,0\" stroke-width=\"2.5\"/><path d=\"M16.5,24 q3.75,-2.6 7.50,0 t7.50,0\" stroke-width=\"2.5\"/><path d=\"M16.5,33 q3.75,-2.6 7.50,0 t7.50,0\" stroke-width=\"2.5\"/>","light-1":"<circle cx=\"24\" cy=\"24\" r=\"7.5\"/><path d=\"M24.00,13.00 L24.00,8.00\" stroke-width=\"2.4\"/><path d=\"M31.78,16.22 L35.31,12.69\" stroke-width=\"2.4\"/><path d=\"M35.00,24.00 L40.00,24.00\" stroke-width=\"2.4\"/><path d=\"M31.78,31.78 L35.31,35.31\" stroke-width=\"2.4\"/><path d=\"M24.00,35.00 L24.00,40.00\" stroke-width=\"2.4\"/><path d=\"M16.22,31.78 L12.69,35.31\" stroke-width=\"2.4\"/><path d=\"M13.00,24.00 L8.00,24.00\" stroke-width=\"2.4\"/><path d=\"M16.22,16.22 L12.69,12.69\" stroke-width=\"2.4\"/>","light-2":"<path d=\"M24,16.5 a7.5,7.5 0 0 1 0,15 z\" fill=\"currentColor\" fill-opacity=\"0.9\" stroke-width=\"0\"/><circle cx=\"24\" cy=\"24\" r=\"7.5\"/><path d=\"M24.00,13.00 L24.00,8.00\" stroke-width=\"2.4\"/><path d=\"M31.78,16.22 L35.31,12.69\" stroke-width=\"2.4\"/><path d=\"M35.00,24.00 L40.00,24.00\" stroke-width=\"2.4\"/><path d=\"M31.78,31.78 L35.31,35.31\" stroke-width=\"2.4\"/><path d=\"M24.00,35.00 L24.00,40.00\" stroke-width=\"2.4\"/><path d=\"M16.22,31.78 L12.69,35.31\" stroke-width=\"2.4\"/><path d=\"M13.00,24.00 L8.00,24.00\" stroke-width=\"2.4\"/><path d=\"M16.22,16.22 L12.69,12.69\" stroke-width=\"2.4\"/>","light-3":"<circle cx=\"24\" cy=\"24\" r=\"9\"/><path d=\"M24.00,11.50 L24.00,7.50\" stroke-width=\"2.4\"/><path d=\"M32.84,15.16 L35.67,12.33\" stroke-width=\"2.4\"/><path d=\"M36.50,24.00 L40.50,24.00\" stroke-width=\"2.4\"/><path d=\"M32.84,32.84 L35.67,35.67\" stroke-width=\"2.4\"/><path d=\"M24.00,36.50 L24.00,40.50\" stroke-width=\"2.4\"/><path d=\"M15.16,32.84 L12.33,35.67\" stroke-width=\"2.4\"/><path d=\"M11.50,24.00 L7.50,24.00\" stroke-width=\"2.4\"/><path d=\"M15.16,15.16 L12.33,12.33\" stroke-width=\"2.4\"/><path d=\"M26,18.5 L20.5,25.5 h3.5 l-2,5 l5.5,-7 h-3.5 z\" stroke-width=\"1.9\" stroke-linejoin=\"miter\" fill=\"currentColor\" fill-opacity=\"0.9\"/>","join-1":"<path d=\"M10.90,15.00 V35.90 M10.90,28.30 H24.20 M22.30,28.30 V35.90\" stroke-width=\"2.45\"/><circle cx=\"30.00\" cy=\"18.40\" r=\"3.40\" stroke-width=\"2.33\"/><path d=\"M24.05,35.40 v-5.10 a5.95,5.95 0 0 1 11.90,0 v5.10\" stroke-width=\"2.33\"/>","join-2":"<circle cx=\"20.00\" cy=\"18.80\" r=\"3.80\" stroke-width=\"2.44\"/><path d=\"M13.35,37.80 v-5.70 a6.65,6.65 0 0 1 13.30,0 v5.70\" stroke-width=\"2.44\"/><path d=\"M26.5,29.5 L36,15\" stroke-width=\"2.5\" stroke-dasharray=\"3.4 3.2\"/>","join-3":"<circle cx=\"11.00\" cy=\"20.64\" r=\"2.64\" stroke-width=\"2.12\"/><path d=\"M6.38,33.84 v-3.96 a4.62,4.62 0 0 1 9.24,0 v3.96\" stroke-width=\"2.12\"/><circle cx=\"24.00\" cy=\"16.20\" r=\"3.20\" stroke-width=\"2.28\"/><path d=\"M18.40,32.20 v-4.80 a5.60,5.60 0 0 1 11.20,0 v4.80\" stroke-width=\"2.28\"/><circle cx=\"37.00\" cy=\"20.64\" r=\"2.64\" stroke-width=\"2.12\"/><path d=\"M32.38,33.84 v-3.96 a4.62,4.62 0 0 1 9.24,0 v3.96\" stroke-width=\"2.12\"/><path d=\"M17.5,27.5 L21,19 M30.5,27.5 L27,19\" stroke-width=\"2.3\"/><path d=\"M5.5,30 L8,23.5 M42.5,30 L40,23.5\" stroke-width=\"2\"/>","quiet-yes":"<path d=\"M8,10 h32 a2,2 0 0 1 2,2 v24 a2,2 0 0 1 -2,2 h-32 a2,2 0 0 1 -2,-2 v-24 a2,2 0 0 1 2,-2 z\"/><path d=\"M12.20,17.00 V30.20 M12.20,25.40 H20.60 M19.40,25.40 V30.20\" stroke-width=\"2.10\"/><path d=\"M26,21 h3.5 l4,-4 v14 l-4,-4 H26 z\" stroke-width=\"2.1\"/><path d=\"M35.5,21 L39.5,27 M39.5,21 L35.5,27\" stroke-width=\"2.1\"/>","quiet-no":"<path d=\"M8,10 h32 a2,2 0 0 1 2,2 v24 a2,2 0 0 1 -2,2 h-32 a2,2 0 0 1 -2,-2 v-24 a2,2 0 0 1 2,-2 z\"/><path d=\"M12.20,17.00 V30.20 M12.20,25.40 H20.60 M19.40,25.40 V30.20\" stroke-width=\"2.10\"/><path d=\"M26,21 h3.5 l4,-4 v14 l-4,-4 H26 z\" stroke-width=\"2.1\"/><path d=\"M9,39 L39,9\" stroke-width=\"2.8\"/>"}};
+const ALL = D.dims.concat([Object.assign({core:true, quiet:true}, D.quiet)]);
+const state = {};
+ALL.forEach(d => state[d.key] = {on: d.core || d.quiet, level: d.quiet ? 1 : 2});
+state.quiet = {on:true, level:1};
+
+
+const $ = s => document.querySelector(s);
+const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const iconKey = (d,l) => d.quiet ? 'quiet-'+d.levels[l-1].suffix : d.key+'-'+l;
+
+function iconSvg(d,l,size){
+  return '<svg viewBox="0 0 48 48" width="'+size+'" height="'+size+'" fill="none" '+
+    'stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" '+
+    'aria-hidden="true">'+D.icons[iconKey(d,l)].replace(/currentColor/g,'currentColor')+'</svg>';
+}
+
+/* ---------- controls ---------- */
+function buildForm(){
+  const f = $('#form'); f.innerHTML='';
+  ALL.forEach(d=>{
+    const w = document.createElement('div'); w.className='fs-wrap';
+    const fs = document.createElement('fieldset'); fs.dataset.key=d.key;
+    let h = '<legend>'+d.name+'</legend><p class="q">'+d.question+'</p><div class="opts">';
+    d.levels.forEach((lv,i)=>{
+      h += '<button type="button" class="opt" data-k="'+d.key+'" data-l="'+(i+1)+'" '+
+           'aria-pressed="false">'+iconSvg(d,i+1,26)+'<span>'+lv.word+'</span></button>';
+    });
+    fs.innerHTML = h+'</div>';
+    const t = document.createElement('button');
+    t.type='button'; t.className='tog'; t.dataset.k=d.key;
+    t.textContent = 'Show'; t.setAttribute('aria-pressed','false');
+    t.setAttribute('aria-label','Include '+d.name+' on the graphic');
+    w.appendChild(fs); w.appendChild(t); f.appendChild(w);
+  });
+  f.addEventListener('click', e=>{
+    const o = e.target.closest('.opt'), t = e.target.closest('.tog');
+    if(o){ state[o.dataset.k].level = +o.dataset.l; state[o.dataset.k].on = true; sync(); }
+    if(t){ state[t.dataset.k].on = !state[t.dataset.k].on; sync(); }
+  });
+}
+function sync(){
+  ALL.forEach(d=>{
+    const on = state[d.key].on;
+    const fs = document.querySelector('fieldset[data-key="'+d.key+'"]');
+    fs.dataset.off = on ? '0' : '1';
+    const t = document.querySelector('.tog[data-k="'+d.key+'"]');
+    t.setAttribute('aria-pressed', on?'true':'false');
+    t.textContent = on ? 'On' : 'Off';
+    Array.prototype.slice.call(fs.querySelectorAll('.opt')).forEach(function(b){
+      b.setAttribute('aria-pressed', (on && +b.dataset.l===state[d.key].level)?'true':'false');
+    });
+  });
+  render();
+}
+
+/* ---------- SVG graphic ---------- */
+const F = 'Helvetica, Arial, sans-serif';
+function wrap(text, maxChars){
+  const out=[]; let line='';
+  text.split(/\s+/).forEach(w=>{
+    if((line+' '+w).trim().length > maxChars){ if(line) out.push(line); line=w; }
+    else line=(line+' '+w).trim();
+  });
+  if(line) out.push(line); return out;
+}
+function meterSvg(x,y,level,colour){
+  let s='';
+  for(let i=0;i<3;i++){
+    const h=5+i*4, bx=x+i*7, by=y-h;
+    s += (i<level)
+      ? '<rect x="'+bx+'" y="'+by+'" width="4.5" height="'+h+'" rx="1" fill="'+colour+'"/>'
+      : '<rect x="'+(bx+.7)+'" y="'+(by+.7)+'" width="3.1" height="'+(h-1.4)+
+        '" rx="1" fill="none" stroke="'+(colour==='#FFFFFF'?'#8E86A8':'#B4B1A8')+
+        '" stroke-width="1.4"/>';
+  }
+  return s;
+}
+function buildSvg(){
+  const picked = ALL.filter(d=>state[d.key].on);
+  const title = $('#ttl').value.trim(), note = $('#note').value.trim();
+  const colour = $('#col').value, bg = $('#bg').value;
+  const cols = Math.max(1, Math.min(+$('#lay').value, picked.length || 1));
+  const CW = cols===1 ? 262 : 240, CH = 46, GX = 18, GY = 18, PAD = 22;
+  const rows = Math.ceil(picked.length/cols);
+  const W = PAD*2 + cols*CW + (cols-1)*GX;
+  const titleH = title ? 28 : 0;
+  const noteLines = note ? wrap(note, Math.floor((W-PAD*2)/6.6)) : [];
+  const noteH = noteLines.length ? 14 + noteLines.length*18 : 0;
+  const H = PAD*2 + titleH + rows*CH + (rows-1)*GY + noteH;
+  const sub = colour==='#FFFFFF' ? '#D8D4E4' : '#63626E';
+  const acc = colour==='#FFFFFF' ? '#FFFFFF' : '#4B2E83';
+
+  let s = '<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+'" '+
+    'viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+esc(altText())+'">';
+  s += '<title>'+esc(altText())+'</title>';
+  if(bg!=='none'){
+    s += '<rect x="0.75" y="0.75" width="'+(W-1.5)+'" height="'+(H-1.5)+'" rx="13" fill="'+bg+
+         '" stroke="#E3E0D8" stroke-width="1.5"/>';
+  }
+  let y = PAD;
+  if(title){
+    s += '<text x="'+PAD+'" y="'+(y+11)+'" font-family="'+F+'" font-size="11.5" '+
+         'font-weight="700" letter-spacing="1.5" fill="'+acc+'">'+
+         esc(title.replace(/&middot;/g,'\u00b7')).toUpperCase()+'</text>';
+    y += titleH;
+  }
+  picked.forEach((d,i)=>{
+    const c = i%cols, r = Math.floor(i/cols);
+    const x = PAD + c*(CW+GX), cy = y + r*(CH+GY);
+    const lv = state[d.key].level, lab = d.name.toUpperCase();
+    s += '<g transform="translate('+x+','+(cy+5)+') scale(0.7292)" fill="none" stroke="'+
+         colour+'" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" color="'+
+         colour+'">'+D.icons[iconKey(d,lv)]+'</g>';
+    const tx = x + 46, avail = CW - 46;
+    s += '<text x="'+tx+'" y="'+(cy+14)+'" font-family="'+F+'" font-size="10.5" '+
+         'letter-spacing="1.1" fill="'+sub+'">'+esc(lab)+'</text>';
+    if(!d.quiet) s += meterSvg(tx + lab.length*7.9 + 9, cy+14, lv, colour);
+    const val = d.levels[lv-1].word;
+    let fsz = 15;
+    if(val.length*fsz*0.53 > avail) fsz = Math.max(11.5, avail/(val.length*0.53));
+    s += '<text x="'+tx+'" y="'+(cy+33)+'" font-family="'+F+'" font-size="'+
+         (Math.round(fsz*10)/10)+'" font-weight="700" fill="'+colour+'">'+esc(val)+'</text>';
+  });
+  if(noteLines.length){
+    const ny = y + rows*CH + (rows-1)*GY + 14;
+    s += '<line x1="'+PAD+'" y1="'+ny+'" x2="'+(W-PAD)+'" y2="'+ny+
+         '" stroke="#E3E0D8" stroke-width="1.5"/>';
+    noteLines.forEach((ln,i)=>{
+      s += '<text x="'+PAD+'" y="'+(ny+20+i*18)+'" font-family="'+F+'" font-size="13.5" fill="'+
+           sub+'">'+esc(ln.replace(/&mdash;/g,'\u2014').replace(/&middot;/g,'\u00b7'))+'</text>';
+    });
+  }
+  return s+'</svg>';
+}
+function altText(){
+  const picked = ALL.filter(d=>state[d.key].on);
+  const title = $('#ttl').value.trim().replace(/&middot;/g,'\u00b7');
+  const bits = picked.map(d=>d.name+': '+d.levels[state[d.key].level-1].word);
+  return 'What to expect at '+(title||'this event')+'. '+bits.join('. ')+'.';
+}
+function render(){
+  $('#stage').innerHTML = buildSvg();
+  $('#altbox').value = altText();
+}
+
+/* ---------- downloads ---------- */
+function fileName(ext){
+  const t = $('#ttl').value.trim().toLowerCase()
+    .replace(/&middot;|&amp;/g,' ').replace(/[^a-z0-9]+/g,'-')
+    .replace(/^-|-$/g,'').slice(0,50) || 'event';
+  return 'what-to-expect-'+t+'.'+ext;
+}
+function saveBlob(blob, name){
+  const u = URL.createObjectURL(blob), a = document.createElement('a');
+  a.href = u; a.download = name; document.body.appendChild(a); a.click();
+  a.remove(); setTimeout(()=>URL.revokeObjectURL(u), 2000);
+}
+function say(m){ $('#said').textContent = m; setTimeout(()=>{ $('#said').textContent=''; }, 3500); }
+
+$('#dlSvg').onclick = ()=>{
+  saveBlob(new Blob([buildSvg()], {type:'image/svg+xml;charset=utf-8'}), fileName('svg'));
+  say('SVG downloaded.');
+};
+function viaDataUrl(c, w, h){
+  try{
+    const a = document.createElement('a');
+    a.href = c.toDataURL('image/png'); a.download = fileName('png');
+    document.body.appendChild(a); a.click(); a.remove();
+    say('PNG downloaded at '+w+'\u00d7'+h+'px.');
+  }catch(err){
+    say('This browser blocked the PNG ('+err.name+'). Use Download SVG instead.');
+  }
+}
+$('#dlPng').onclick = ()=>{
+  const svg = buildSvg(), k = +$('#scale').value;
+  const m = svg.match(/width="(\d+(?:\.\d+)?)" height="(\d+(?:\.\d+)?)"/);
+  if(!m){ say('Could not read the graphic size \u2014 use Download SVG.'); return; }
+  const w = Math.round(+m[1]*k), h = Math.round(+m[2]*k);
+  const img = new Image();
+  img.onload = ()=>{
+    let c;
+    try{
+      c = document.createElement('canvas'); c.width = w; c.height = h;
+      c.getContext('2d').drawImage(img, 0, 0, w, h);
+    }catch(err){
+      say('Could not draw the graphic ('+err.name+'). Use Download SVG instead.'); return;
+    }
+    if(!c.toBlob){ viaDataUrl(c, w, h); return; }
+    try{
+      c.toBlob(b=>{
+        if(b){ saveBlob(b, fileName('png')); say('PNG downloaded at '+w+'\u00d7'+h+'px.'); }
+        else viaDataUrl(c, w, h);
+      }, 'image/png');
+    }catch(err){ viaDataUrl(c, w, h); }
+  };
+  img.onerror = ()=>say('The graphic would not load for export \u2014 use Download SVG instead.');
+  img.src = 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+};
+function copy(text, msg){
+  const done = ()=>say(msg);
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(text).then(done).catch(()=>fallback());
+  } else fallback();
+  function fallback(){
+    const ta = document.createElement('textarea'); ta.value = text;
+    ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta);
+    ta.select(); try{ document.execCommand('copy'); done(); }
+    catch(e){ say('Copy failed \u2014 select the text manually.'); }
+    ta.remove();
+  }
+}
+$('#cpHtml').onclick = ()=>copy(
+  '<figure class="what-to-expect" role="group" aria-label="'+altText()+'">\n'+
+  buildSvg()+'\n</figure>', 'Website HTML copied.');
+$('#cpAlt').onclick = ()=>copy(altText(), 'Alt text copied.');
+
+['#ttl','#note','#lay','#col','#bg'].forEach(s=>{
+  $(s).addEventListener('input', render); $(s).addEventListener('change', render);
+});
+
+buildForm(); sync();
+</script></body></html>
