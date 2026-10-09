@@ -64,6 +64,8 @@ textarea{resize:vertical;min-height:64px;font-size:14px}
 .hint{font-size:13px;color:var(--slate);margin:8px 0 0;max-width:62ch}
 .hint a{color:var(--purple);font-weight:700}
 #qrBox[data-off="1"]{opacity:.5}
+.hint.warn{color:#8A4B00;font-weight:700}
+.hint.warn:empty{display:none}
 
 .stage{border:1px solid var(--line);border-radius:12px;padding:20px;overflow:auto;
   background:
@@ -146,7 +148,8 @@ textarea{resize:vertical;min-height:64px;font-size:14px}
       <p class="hint">Leave this as it is and the code opens our <a id="qrTest" href="https://whattoexpect.appsbydave.com/key/"
       target="_blank" rel="noopener">What the symbols mean</a> page, already showing this event&rsquo;s
       levels in full. Or paste a link to your own event page. In print, keep the code at least
-      2&nbsp;cm wide so phones can read it.</p></div>
+      2&nbsp;cm wide so phones can read it.</p>
+      <p class="hint warn" id="qrWarn" role="status" aria-live="polite"></p></div>
   </div>
 </div>
 
@@ -270,56 +273,87 @@ function sync(){
 
 /* ---------- QR code ---------- */
 function eventCode(){ return ALL.map(d=>state[d.key].on ? state[d.key].level : 0).join(''); }
-function isKeyPage(u){ return u.replace(/\/+$/,'') === KEY_URL.replace(/\/+$/,''); }
+function bareUrl(u){
+  return u.trim().toLowerCase().replace(/^https?:\/\//,'').replace(/[?#].*$/,'')
+    .replace(/\/index\.html$/,'').replace(/\/+$/,'');
+}
+function isKeyPage(u){ return bareUrl(u) === bareUrl(KEY_URL); }
+/* Without a scheme, many phone cameras read a code as plain text rather than a link. */
+function withScheme(u){ return /^[a-z][a-z0-9+.-]*:/i.test(u) ? u : 'https://'+u; }
 function qrLink(){
   if(!$('#qrOn').checked) return '';
   const u = $('#qrUrl').value.trim();
   if(!u) return '';
-  return isKeyPage(u) ? KEY_URL+'?s='+eventCode() : u;
+  return isKeyPage(u) ? KEY_URL+'?s='+eventCode() : withScheme(u);
 }
 function shortUrl(u){
-  return u.replace(/^https?:\/\//,'').replace(/[?#].*$/,'').replace(/\/+$/,'');
+  return u.replace(/^https?:\/\//i,'').replace(/[?#].*$/,'').replace(/\/+$/,'');
 }
-function qrSvg(x,y,size,text,ink){
-  const q = qrcode(0,'M'); q.addData(text); q.make();
-  const n = q.getModuleCount(), m = 3, cell = size/(n+2*m);
+let qrMemo = {text:null, qr:null};
+function makeQr(text){
+  if(qrMemo.text === text) return qrMemo.qr;
+  let q = null;
+  try{ q = qrcode(0,'M'); q.addData(text); q.make(); }catch(err){ q = null; }  /* too long to encode */
+  qrMemo = {text:text, qr:q};
+  return q;
+}
+const QM = 3;  /* quiet zone, in modules */
+/* Whole-pixel modules, so the code stays sharp (and scannable) even in the Small 1x PNG. */
+function qrCell(q){ return Math.max(2, Math.round(84/(q.getModuleCount()+2*QM))); }
+function qrSize(q){ return qrCell(q)*(q.getModuleCount()+2*QM); }
+function qrSvg(x,y,q,ink){
+  const n = q.getModuleCount(), cell = qrCell(q), size = qrSize(q);
   let p = '';
   for(let r=0;r<n;r++){
     for(let c=0;c<n;c++){
       if(!q.isDark(r,c)) continue;
       let c2 = c; while(c2+1<n && q.isDark(r,c2+1)) c2++;
-      p += 'M'+(c+m)+','+(r+m)+'h'+(c2-c+1)+'v1h-'+(c2-c+1)+'z'; c = c2;
+      p += 'M'+(c+QM)+','+(r+QM)+'h'+(c2-c+1)+'v1h-'+(c2-c+1)+'z'; c = c2;
     }
   }
   return '<rect x="'+x+'" y="'+y+'" width="'+size+'" height="'+size+'" rx="4" fill="#FFFFFF"/>'+
-    '<path transform="translate('+x+','+y+') scale('+cell.toFixed(4)+')" d="'+p+'" fill="'+ink+
+    '<path transform="translate('+x+','+y+') scale('+cell+')" d="'+p+'" fill="'+ink+
     '" shape-rendering="crispEdges"/>';
 }
 
 /* ---------- SVG graphic ---------- */
 const F = 'Helvetica, Arial, sans-serif';
-function wrap(text, maxChars){
+const measure = document.createElement('canvas').getContext('2d');
+/* Real text widths, so capitals, long words and long headings never run off the edge or under the QR code. */
+function textW(str, size, weight, spacing){
+  measure.font = (weight||400)+' '+size+'px '+F;
+  return measure.measureText(str).width*1.04 + (spacing||0)*str.length;
+}
+function wrap(text, maxW, size, weight, spacing){
   const out=[]; let line='';
-  text.split(/\s+/).forEach(w=>{
-    if((line+' '+w).trim().length > maxChars){ if(line) out.push(line); line=w; }
-    else line=(line+' '+w).trim();
+  const fits = s => textW(s, size, weight, spacing) <= maxW;
+  text.split(/\s+/).filter(Boolean).forEach(w=>{
+    while(!fits(w) && w.length > 1){          /* one word wider than the space: break it */
+      let k = w.length - 1; while(k > 1 && !fits(w.slice(0,k))) k--;
+      if(line){ out.push(line); line=''; }
+      out.push(w.slice(0,k)); w = w.slice(k);
+    }
+    const tryLine = line ? line+' '+w : w;
+    if(fits(tryLine)) line = tryLine; else { if(line) out.push(line); line = w; }
   });
   if(line) out.push(line); return out;
 }
 function buildSvg(){
   const picked = ALL.filter(d=>state[d.key].on);
-  const title = $('#ttl').value.trim(), note = $('#note').value.trim();
+  const title = $('#ttl').value.trim().replace(/&middot;/g,'·').toUpperCase();
+  const note = $('#note').value.trim().replace(/&mdash;/g,',').replace(/&middot;/g,'·');
   const colour = $('#col').value, bg = $('#bg').value;
   const cols = Math.max(1, Math.min(+$('#lay').value, picked.length || 1));
-  const CW = cols===1 ? 262 : 240, CH = 46, GX = 18, GY = 18, PAD = 22, QS = 84;
+  const CW = cols===1 ? 262 : 240, CH = 46, GX = 18, GY = 18, PAD = 22;
   const rows = Math.ceil(picked.length/cols);
   const W = PAD*2 + cols*CW + (cols-1)*GX;
-  const titleH = title ? 28 : 0;
-  const link = qrLink();
-  const noteW = W - PAD*2 - (link ? QS+18 : 0);
-  const noteLines = note ? wrap(note, Math.floor(noteW/6.6)) : [];
-  const footH = (noteLines.length || link)
-    ? Math.max(noteLines.length ? 14 + noteLines.length*18 : 0, link ? QS + 38 : 0) : 0;
+  const titleLines = title ? wrap(title, W-PAD*2, 11.5, 700, 1.5) : [];
+  const titleH = titleLines.length ? 28 + (titleLines.length-1)*16 : 0;
+  const link = qrLink(), qr = link ? makeQr(link) : null, QS = qr ? qrSize(qr) : 0;
+  const noteW = W - PAD*2 - (qr ? QS+18 : 0);
+  const noteLines = note ? wrap(note, noteW, 13.5, 400, 0) : [];
+  const footH = (noteLines.length || qr)
+    ? Math.max(noteLines.length ? 14 + noteLines.length*18 : 0, qr ? QS + 38 : 0) : 0;
   const H = PAD*2 + titleH + rows*CH + Math.max(0,rows-1)*GY + footH;
   const sub = colour==='#FFFFFF' ? '#D8D4E4' : '#63626E';
   const acc = colour==='#FFFFFF' ? '#FFFFFF' : '#4B2E83';
@@ -332,12 +366,11 @@ function buildSvg(){
          '" stroke="#E3E0D8" stroke-width="1.5"/>';
   }
   let y = PAD;
-  if(title){
-    s += '<text x="'+PAD+'" y="'+(y+11)+'" font-family="'+F+'" font-size="11.5" '+
-         'font-weight="700" letter-spacing="1.5" fill="'+acc+'">'+
-         esc(title.replace(/&middot;/g,'·').toUpperCase())+'</text>';
-    y += titleH;
-  }
+  titleLines.forEach((ln,i)=>{
+    s += '<text x="'+PAD+'" y="'+(y+11+i*16)+'" font-family="'+F+'" font-size="11.5" '+
+         'font-weight="700" letter-spacing="1.5" fill="'+acc+'">'+esc(ln)+'</text>';
+  });
+  y += titleH;
   picked.forEach((d,i)=>{
     const c = i%cols, r = Math.floor(i/cols);
     const x = PAD + c*(CW+GX), cy = y + r*(CH+GY);
@@ -348,12 +381,13 @@ function buildSvg(){
     const tx = x + 46, avail = CW - 46;
     s += '<text x="'+tx+'" y="'+(cy+14)+'" font-family="'+F+'" font-size="10.5" '+
          'letter-spacing="1.1" fill="'+sub+'">'+esc(lab)+'</text>';
-    s += markSvg(tx + lab.length*7.9 + 9, cy+14, d, lv, colour);
+    s += markSvg(Math.round((tx + textW(lab, 10.5, 400, 1.1) + 7)*10)/10, cy+14, d, lv, colour);
     const val = d.levels[lv-1].word;
     let fsz = 15;
-    if(val.length*fsz*0.53 > avail) fsz = Math.max(11.5, avail/(val.length*0.53));
+    const vw = textW(val, fsz, 700, 0);
+    if(vw > avail) fsz = Math.max(11.5, fsz*avail/vw);
     s += '<text x="'+tx+'" y="'+(cy+33)+'" font-family="'+F+'" font-size="'+
-         (Math.round(fsz*10)/10)+'" font-weight="700" fill="'+colour+'">'+esc(val)+'</text>';
+         (Math.floor(fsz*10)/10)+'" font-weight="700" fill="'+colour+'">'+esc(val)+'</text>';
   });
   if(footH){
     const ny = y + rows*CH + Math.max(0,rows-1)*GY + 14;
@@ -361,11 +395,11 @@ function buildSvg(){
          '" stroke="#E3E0D8" stroke-width="1.5"/>';
     noteLines.forEach((ln,i)=>{
       s += '<text x="'+PAD+'" y="'+(ny+20+i*18)+'" font-family="'+F+'" font-size="13.5" fill="'+
-           sub+'">'+esc(ln.replace(/&mdash;/g,',').replace(/&middot;/g,'·'))+'</text>';
+           sub+'">'+esc(ln)+'</text>';
     });
-    if(link){
+    if(qr){
       const qx = W-PAD-QS, qy = ny+10;
-      s += qrSvg(qx, qy, QS, link, colour==='#FFFFFF' ? '#23222B' : colour);
+      s += qrSvg(qx, qy, qr, colour==='#FFFFFF' ? '#23222B' : colour);
       s += '<text x="'+(qx+QS/2)+'" y="'+(qy+QS+15)+'" text-anchor="middle" font-family="'+F+
            '" font-size="10.5" fill="'+sub+'">More information</text>';
     }
@@ -376,17 +410,20 @@ function altText(){
   const picked = ALL.filter(d=>state[d.key].on);
   const title = $('#ttl').value.trim().replace(/&middot;/g,'·');
   const bits = picked.map(d=>d.name+': '+d.levels[state[d.key].level-1].word);
-  const link = qrLink();
+  const link = qrLink(), qr = link ? makeQr(link) : null;
   return 'What to expect at '+(title||'this event')+'.'+(bits.length ? ' '+bits.join('. ')+'.' : '')+
-    (link ? ' The QR code links to more information at '+shortUrl(link)+'.' : '');
+    (qr ? ' The QR code links to more information at '+shortUrl(link)+'.' : '');
 }
 function render(){
   $('#stage').innerHTML = buildSvg();
   $('#altbox').value = altText();
-  const on = $('#qrOn').checked, link = qrLink();
+  const on = $('#qrOn').checked, link = qrLink(), qr = link ? makeQr(link) : null;
   $('#qrBox').dataset.off = on ? '0' : '1';
   $('#qrUrl').disabled = !on;
   $('#qrTest').href = link || KEY_URL;
+  $('#qrWarn').textContent = !on || !link ? '' :
+    !qr ? 'That link is too long to fit in a QR code, so the graphic has no code. Use a shorter link.' :
+    qr.getModuleCount() > 37 ? 'This is a long link, so the code is very dense and older phones may struggle. A shorter link will scan more easily.' : '';
 }
 
 /* ---------- downloads ---------- */
@@ -457,8 +494,8 @@ function copy(text, msg){
 }
 $('#cpHtml').onclick = ()=>{
   const link = qrLink();
-  const cap = link ? '\n<figcaption><a href="'+esc(link)+'">'+
-    (isKeyPage(link.replace(/[?#].*$/,'')) ? 'What these symbols mean' : 'More information')+
+  const cap = link && makeQr(link) ? '\n<figcaption><a href="'+esc(link)+'">'+
+    (isKeyPage(link) ? 'What these symbols mean' : 'More information')+
     '</a></figcaption>' : '';
   copy('<figure class="what-to-expect" role="group" aria-label="'+esc(altText())+'">\n'+
     buildSvg()+cap+'\n</figure>', 'Website HTML copied.');
